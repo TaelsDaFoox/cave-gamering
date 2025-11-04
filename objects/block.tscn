@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyrflxo48crwq"]
+
+[ext_resource type="Material" uid="uid://cs10xny43ln2s" path="res://materials/grass.tres" id="1_5tpor"]
+
+[node name="Block" type="CSGBox3D"]
+material_override = ExtResource("1_5tpor")
+material = ExtResource("1_5tpor")
