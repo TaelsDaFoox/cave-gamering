@@ -3,23 +3,23 @@
 [ext_resource type="Script" uid="uid://cvkxojtn5i24h" path="res://objects/player.gd" id="1_eqqp1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bxedw"]
+height = 1.5
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 16
+collision_layer = 2
 script = ExtResource("1_eqqp1")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 layers = 2
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2532828, 0)
-cull_mask = 1048573
+height = 1.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bxedw")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-visible = false
-light_energy = 10.0
-spot_range = 21.075838
-spot_angle = 36.43459
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+spring_length = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+fov = 50.0

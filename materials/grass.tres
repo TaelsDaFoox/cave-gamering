@@ -6,4 +6,4 @@
 albedo_texture = ExtResource("1_oysvd")
 uv1_triplanar = true
 uv1_world_triplanar = true
-texture_filter = 0
+texture_filter = 2
