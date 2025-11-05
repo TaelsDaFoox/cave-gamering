@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu4ywlpmfajie"]
+[gd_scene load_steps=8 format=3 uid="uid://cu4ywlpmfajie"]
 
 [ext_resource type="PackedScene" uid="uid://dqams5il2w21v" path="res://objects/player.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://de7nkc2yfqg7" path="res://objects/table.tscn" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://blyueoicdirdy" path="res://room_camera.gd" id="2_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
 
@@ -11,29 +13,41 @@ sky_material = SubResource("ProceduralSkyMaterial_fj7yv")
 background_mode = 1
 sky = SubResource("Sky_tlwt5")
 ambient_light_source = 2
-ambient_light_color = Color(0.5658396, 0.44830596, 0.60263455, 1)
+ambient_light_color = Color(0.7044387, 0.59794587, 0.7437744, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f3sb7"]
 size = Vector3(1, 6, 8)
 
 [node name="World" type="Node3D"]
 
+[node name="Table" parent="." instance=ExtResource("1_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1.5)
+
 [node name="Floor" type="CSGBox3D" parent="."]
 use_collision = true
-size = Vector3(8, 1, 8)
+size = Vector3(6, 1, 6)
+
+[node name="Walls" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+use_collision = true
+flip_faces = true
+size = Vector3(6, 6, 6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_aqk2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.86832005, -9.5218296e-05, 0.49600437, -0.43510157, 0.4799548, 0.761794, -0.23813221, -0.8772933, 0.41671294, 0, 0, 0)
-light_energy = 2.0
 shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 0.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.70710677, 0, -0.70710677, 0.7071068, 0, 7.6173015, 7.1798096)
 current = true
 fov = 50.0
+script = ExtResource("2_tlwt5")
+player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2155097, 0)
@@ -41,21 +55,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2155097, 0)
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.5, 0)
 shape = SubResource("BoxShape3D_f3sb7")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.5, 0)
 shape = SubResource("BoxShape3D_f3sb7")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.9670125e-07, 2.5, -4.5)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.9670125e-07, 2.5, -3.5)
 shape = SubResource("BoxShape3D_f3sb7")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9670125e-07, 2.5, 4.5)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9670125e-07, 2.5, 3.5)
 shape = SubResource("BoxShape3D_f3sb7")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1.5)
-use_collision = true

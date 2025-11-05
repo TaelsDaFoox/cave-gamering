@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cvkxojtn5i24h" path="res://objects/player.gd" id="1_eqqp1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bxedw"]
+radius = 0.45
 height = 1.5
 
 [node name="Player" type="CharacterBody3D"]
