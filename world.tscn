@@ -50,7 +50,7 @@ script = ExtResource("2_tlwt5")
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_f3sb7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2155097, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2498822, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
