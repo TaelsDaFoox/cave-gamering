@@ -2,17 +2,18 @@ extends CharacterBody3D
 #@onready var camera = $Camera3D
 @export var move_speed :=6
 @onready var model = $model
-@onready var interact = $model/Interact
+@onready var interact = $Interact
 var statetimer := 0.0
 var state = "Idle"
 var dragTarget=Vector3.ZERO
 var grabbedthing = null
+@onready var anim = $model/AnimationPlayer
 func _physics_process(delta: float) -> void:
 	#print(state)
 	#print(statetimer)
 	var input_dir = Input.get_vector("left","right","forward","backward")
 	if input_dir:
-		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()-PI/2,delta*20)
+		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 	#input_dir = input_dir.rotated(-camera.rotation.y)
 	if state == "Drag":
 		global_position=global_position.lerp(dragTarget,delta*8)
@@ -21,6 +22,10 @@ func _physics_process(delta: float) -> void:
 			state="Idle"
 			snapPos()
 	if grabbedthing:
+		if state == "Idle":
+			anim.play("Grab",0.2,1.0)
+		if state == "Drag":
+			anim.play("Pull",0.2,2.0)
 		velocity=Vector3.ZERO
 		if not Input.is_action_pressed("A") and statetimer==0.0:
 			state = "Idle"
@@ -41,6 +46,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x=input_dir.x*move_speed
 		velocity.z=input_dir.y*move_speed
+		if input_dir:
+			anim.play("Walk",0.2,3.0)
+		else:
+			anim.play("Idle",0.2,1.0)
 		
 	
 	move_and_slide()
