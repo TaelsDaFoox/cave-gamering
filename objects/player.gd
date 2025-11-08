@@ -9,24 +9,28 @@ var dragTarget=Vector3.ZERO
 var grabbedthing = null
 @onready var anim = $model/AnimationPlayer
 func _physics_process(delta: float) -> void:
+	statetimer=move_toward(statetimer,0.0,delta)
 	#print(state)
 	#print(statetimer)
 	var input_dir = Input.get_vector("left","right","forward","backward")
-	if input_dir:
+	if input_dir and not grabbedthing:
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 	#input_dir = input_dir.rotated(-camera.rotation.y)
 	if state == "Drag":
-		global_position=global_position.lerp(dragTarget,delta*8)
-		statetimer=move_toward(statetimer,0.0,delta)
+		#global_position=global_position.lerp(dragTarget,delta*8)
+		velocity=(global_position.lerp(dragTarget,7))-global_position
+		velocity.y=0.0
+		#print(velocity)
 		if statetimer==0.0:
 			state="Idle"
 			snapPos()
 	if grabbedthing:
 		if state == "Idle":
+			velocity=Vector3.ZERO
 			anim.play("Grab",0.2,1.0)
 		if state == "Drag":
-			anim.play("Pull",0.2,2.0)
-		velocity=Vector3.ZERO
+			anim.play("Pull",0.2,velocity.length()*1.1)
+		#velocity=Vector3.ZERO
 		if not Input.is_action_pressed("A") and statetimer==0.0:
 			state = "Idle"
 			snapPos()
@@ -38,7 +42,7 @@ func _physics_process(delta: float) -> void:
 			grabbedthing.queue_free()
 			grabbedthing=null
 		if state == "Idle" and grabbedthing:
-			if input_dir:
+			if input_dir and statetimer==0.0:
 				var dragAng = round((input_dir.angle()/(PI/2)))*(PI/2)
 				dragTarget = global_position+Vector3(cos(dragAng),0,sin(dragAng))
 				state = "Drag"
@@ -58,6 +62,7 @@ func _physics_process(delta: float) -> void:
 	if grabstuff:
 		if Input.is_action_pressed("A"):
 			if grabstuff[0].get_parent()!=self:
+				statetimer=0.15
 				global_position.x=round(global_position.x+0.5)-0.5
 				global_position.z=round(global_position.z+0.5)-0.5
 				var grabbedobj = grabstuff[0].duplicate()
@@ -66,7 +71,7 @@ func _physics_process(delta: float) -> void:
 				add_child(grabbedobj)
 				grabbedthing = grabbedobj
 				#model.rotation.y=round((model.rotation.y/(PI/2)))*(PI/2)
-				#model.rotation.y=Vector2(position.x,position.z).angle_to(Vector2(grabbedobj.position.x,grabbedobj.position.z))
+				model.rotation.y=-Vector2(global_position.x,global_position.z).angle_to_point(Vector2(grabbedobj.global_position.x,grabbedobj.global_position.z))+(PI/2)
 				grabstuff[0].queue_free()
 func snapPos():
 	global_position.x = round(global_position.x+0.5)-0.5
