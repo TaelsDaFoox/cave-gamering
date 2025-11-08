@@ -8,6 +8,13 @@ var state = "Idle"
 var dragTarget=Vector3.ZERO
 var grabbedthing = null
 @onready var anim = $model/AnimationPlayer
+@onready var shirt = $model/Armature/Skeleton3D/Shirt
+var shirttex = load("res://materials/shirt.tres")
+var shirtnum = randi_range(0,272)
+func _ready() -> void:
+	#shirttex.uv1_scale=Vector3(0.059,0.059,0)
+	shirttex.uv1_offset=Vector3(0.0625*shirtnum,0.0625*floor(shirtnum/16.0),0.0)
+	shirt.set_surface_override_material(0,shirttex)
 func _physics_process(delta: float) -> void:
 	statetimer=move_toward(statetimer,0.0,delta)
 	#print(state)

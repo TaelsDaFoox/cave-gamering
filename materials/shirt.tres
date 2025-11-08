@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://kpkrnmyqs8uy"]
+
+[ext_resource type="Texture2D" uid="uid://fun2j7ms1408" path="res://textures/acshirts.png" id="1_rknnh"]
+
+[resource]
+albedo_texture = ExtResource("1_rknnh")
+uv1_scale = Vector3(0.059, 0.059, 0.059)
+texture_filter = 0

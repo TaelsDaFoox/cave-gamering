@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c44wtkmqubmm"]
+[gd_scene load_steps=3 format=3 uid="uid://c44wtkmqubmm"]
 
 [ext_resource type="PackedScene" uid="uid://du0j4l577lgnt" path="res://models/raccoon ac.glb" id="1_uaydp"]
+[ext_resource type="Material" uid="uid://kpkrnmyqs8uy" path="res://materials/shirt.tres" id="2_7po5p"]
 
 [node name="Raccoon Model" instance=ExtResource("1_uaydp")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
@@ -11,5 +12,8 @@ visible = false
 [node name="Shades" parent="Armature/Skeleton3D" index="3"]
 visible = false
 
-[node name="Witchhat" parent="Armature/Skeleton3D" index="5"]
+[node name="Shirt" parent="Armature/Skeleton3D" index="4"]
+surface_material_override/0 = ExtResource("2_7po5p")
+
+[node name="Witchhat" parent="Armature/Skeleton3D" index="6"]
 visible = false
