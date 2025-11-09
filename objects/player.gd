@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	#print(state)
 	#print(statetimer)
 	var input_dir = Input.get_vector("left","right","forward","backward",0.5)
-	if input_dir and not grabbedthing:
+	if input_dir and not grabbedthing and not state=="Inventory":
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 		interact.rotation.y=roundTo90(model.rotation.y)+PI
 	#input_dir = input_dir.rotated(-camera.rotation.y)
@@ -80,7 +80,7 @@ func _physics_process(delta: float) -> void:
 					angTarget=grabbedthing.rotation.y-(PI/2)
 					state="TurnL"
 					statetimer=0.5
-	else:
+	elif state=="Idle" or state=="Grab": #no idea why this has to run for the grab animation to work but it's almost 1 AM and I don't care to look into it
 		velocity.x=input_dir.x*move_speed
 		velocity.z=input_dir.y*move_speed
 		if input_dir:
@@ -90,6 +90,7 @@ func _physics_process(delta: float) -> void:
 		
 	
 	move_and_slide()
+	#print(state)
 	
 	var grabstuff = interact.get_overlapping_bodies()
 	if grabstuff:
@@ -109,6 +110,13 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("NewShirt"):
 		setShirt(randi_range(0,255))
+	if event.is_action_pressed("menu"):
+		if state=="Idle":
+			state="Inventory"
+			anim.play("Inventory",0.3)
+			velocity=Vector3.ZERO
+		elif state == "Inventory":
+			state="Idle"
 func snapPos():
 	global_position.x = round(global_position.x+0.5)-0.5
 	global_position.z = round(global_position.z-0.5)+0.5

@@ -6,4 +6,4 @@
 albedo_texture = ExtResource("1_wqywn")
 metallic_specular = 0.0
 uv1_scale = Vector3(0.124, 0.11, 1)
-uv1_offset = Vector3(0.125, 0.111, 0)
+uv1_offset = Vector3(0.125, 0.112, 0)
