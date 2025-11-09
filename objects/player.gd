@@ -11,10 +11,12 @@ var grabbedthing = null
 @onready var anim = $model/AnimationPlayer
 @onready var shirt = $model/Armature/Skeleton3D/Shirt
 var shirttex = load("res://materials/shirt.tres")
+var inventory = load("res://Inventory.tscn")
+var shirtmenu = load("res://shirtMenu.tscn")
 func _ready() -> void:
 	#shirttex.uv1_scale=Vector3(0.059,0.059,0)
 	shirt.set_surface_override_material(0,shirttex)
-	setShirt(randi_range(0,255))
+	setShirt(0)
 func _physics_process(delta: float) -> void:
 	statetimer=move_toward(statetimer,0.0,delta)
 	#print(state)
@@ -115,12 +117,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			state="Inventory"
 			anim.play("Inventory",0.3)
 			velocity=Vector3.ZERO
+			get_parent().add_child(shirtmenu.instantiate())
 		elif state == "Inventory":
 			state="Idle"
+			get_parent().get_node("ShirtMenu").queue_free()
 func snapPos():
 	global_position.x = round(global_position.x+0.5)-0.5
 	global_position.z = round(global_position.z-0.5)+0.5
-func setShirt(shirtnum:int):
-	shirttex.uv1_offset=Vector3(0.0625*shirtnum,0.0625*floor(shirtnum/16.0),0.0)
+func setShirt(shirtID:int):
+	shirttex.uv1_offset=Vector3(0.0625*floor(shirtID/16.0),0.0625*shirtID,0.0)
+	Global.shirtnum=shirtID
 func roundTo90(angle:float):
 	return round(angle/(PI/2))*(PI/2)

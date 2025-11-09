@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3v3jww3m4rul"]
+
+[ext_resource type="Script" uid="uid://dniumddodwytf" path="res://shirt_menu.gd" id="1_ncqk2"]
+[ext_resource type="PackedScene" uid="uid://dujk7eywtnb8g" path="res://objects/shirtPreview.tscn" id="2_cp74y"]
+[ext_resource type="FontFile" uid="uid://x5uarbb3anha" path="res://fonts/FOT-Seurat Pro B.otf" id="3_cp74y"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cp74y"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_cp74y"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="ShirtMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ncqk2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -120.0
+offset_right = 16.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_cp74y")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.157089, 3.9249146)
+cull_mask = 1048064
+environment = SubResource("Environment_cp74y")
+fov = 30.0
+
+[node name="shirt" parent="SubViewport" instance=ExtResource("2_cp74y")]
+
+[node name="ShirtText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 29.0
+offset_top = -133.0
+offset_right = 230.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 1
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 66
+text = "Shirt
+255"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = 18.0
+offset_right = 216.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Left" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(78.12, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 51
+text = "<"
+
+[node name="Right" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(78.12, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 51
+text = ">"
+
+[connection signal="pressed" from="HBoxContainer/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="HBoxContainer/Right" to="." method="_on_right_pressed"]

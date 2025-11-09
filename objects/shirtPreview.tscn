@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dujk7eywtnb8g"]
+
+[ext_resource type="PackedScene" uid="uid://dftbb0d64goeb" path="res://models/shirt.glb" id="1_4t661"]
+
+[node name="shirt" instance=ExtResource("1_4t661")]
+
+[node name="Shirt" parent="." index="0"]
+layers = 512
