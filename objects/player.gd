@@ -6,6 +6,7 @@ extends CharacterBody3D
 var statetimer := 0.0
 var state = "Idle"
 var dragTarget=Vector3.ZERO
+var angTarget=0.0
 var grabbedthing = null
 @onready var anim = $model/AnimationPlayer
 @onready var shirt = $model/Armature/Skeleton3D/Shirt
@@ -21,12 +22,19 @@ func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left","right","forward","backward")
 	if input_dir and not grabbedthing:
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
+		interact.rotation.y=roundTo90(model.rotation.y)+PI
 	#input_dir = input_dir.rotated(-camera.rotation.y)
 	if state == "Push" or state == "Pull":
 		#global_position=global_position.lerp(dragTarget,delta*8)
 		velocity=(global_position.lerp(dragTarget,7))-global_position
 		velocity.y=0.0
 		#print(velocity)
+		if statetimer==0.0:
+			state="Idle"
+			snapPos()
+	if state == "TurnR" or state == "TurnL":
+		anim.play(state,0.2,2.0)
+		grabbedthing.rotation.y=lerp_angle(grabbedthing.rotation.y,angTarget,delta*10)
 		if statetimer==0.0:
 			state="Idle"
 			snapPos()
@@ -38,15 +46,17 @@ func _physics_process(delta: float) -> void:
 			anim.play(state,0.2,velocity.length()*1.1)
 		#velocity=Vector3.ZERO
 		if not Input.is_action_pressed("A") and statetimer==0.0:
-			state = "Idle"
 			snapPos()
 			var posBuffer = grabbedthing.global_position
+			var rotBuffer = grabbedthing.rotation
 			var placedobj = grabbedthing.duplicate()
 			placedobj.global_position = posBuffer
+			placedobj.rotation = rotBuffer
 			placedobj.get_node("CollisionShape3D").disabled=false
 			get_parent().add_child(placedobj)
 			grabbedthing.queue_free()
 			grabbedthing=null
+			state = "Idle"
 		if state == "Idle" and grabbedthing:
 			if input_dir and statetimer==0.0:
 				var dragAng = round((input_dir.angle()/(PI/2)))*(PI/2)
@@ -61,6 +71,14 @@ func _physics_process(delta: float) -> void:
 					statetimer=0.5
 				if angleDiff == 0.0:
 					state = "Push"
+					statetimer=0.5
+				if angleDiff == 1.0:
+					angTarget=grabbedthing.rotation.y+(PI/2)
+					state="TurnR"
+					statetimer=0.5
+				if angleDiff == 3.0:
+					angTarget=grabbedthing.rotation.y-(PI/2)
+					state="TurnL"
 					statetimer=0.5
 	else:
 		velocity.x=input_dir.x*move_speed
@@ -86,7 +104,7 @@ func _physics_process(delta: float) -> void:
 				add_child(grabbedobj)
 				grabbedthing = grabbedobj
 				#model.rotation.y=round((model.rotation.y/(PI/2)))*(PI/2)
-				model.rotation.y=-Vector2(global_position.x,global_position.z).angle_to_point(Vector2(grabbedobj.global_position.x,grabbedobj.global_position.z))+(PI/2)
+				model.rotation.y=roundTo90(-Vector2(global_position.x,global_position.z).angle_to_point(Vector2(grabbedobj.global_position.x,grabbedobj.global_position.z))+(PI/2))
 				grabstuff[0].queue_free()
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("NewShirt"):
