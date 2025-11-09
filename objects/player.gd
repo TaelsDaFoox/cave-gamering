@@ -10,11 +10,10 @@ var grabbedthing = null
 @onready var anim = $model/AnimationPlayer
 @onready var shirt = $model/Armature/Skeleton3D/Shirt
 var shirttex = load("res://materials/shirt.tres")
-var shirtnum = randi_range(0,255)
 func _ready() -> void:
 	#shirttex.uv1_scale=Vector3(0.059,0.059,0)
-	shirttex.uv1_offset=Vector3(0.0625*shirtnum,0.0625*floor(shirtnum/16.0),0.0)
 	shirt.set_surface_override_material(0,shirttex)
+	setShirt(randi_range(0,255))
 func _physics_process(delta: float) -> void:
 	statetimer=move_toward(statetimer,0.0,delta)
 	#print(state)
@@ -23,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	if input_dir and not grabbedthing:
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 	#input_dir = input_dir.rotated(-camera.rotation.y)
-	if state == "Drag":
+	if state == "Push" or state == "Pull":
 		#global_position=global_position.lerp(dragTarget,delta*8)
 		velocity=(global_position.lerp(dragTarget,7))-global_position
 		velocity.y=0.0
@@ -35,8 +34,8 @@ func _physics_process(delta: float) -> void:
 		if state == "Idle":
 			velocity=Vector3.ZERO
 			anim.play("Grab",0.2,1.0)
-		if state == "Drag":
-			anim.play("Pull",0.2,velocity.length()*1.1)
+		if state == "Push" or state == "Pull":
+			anim.play(state,0.2,velocity.length()*1.1)
 		#velocity=Vector3.ZERO
 		if not Input.is_action_pressed("A") and statetimer==0.0:
 			state = "Idle"
@@ -52,8 +51,17 @@ func _physics_process(delta: float) -> void:
 			if input_dir and statetimer==0.0:
 				var dragAng = round((input_dir.angle()/(PI/2)))*(PI/2)
 				dragTarget = global_position+Vector3(cos(dragAng),0,sin(dragAng))
-				state = "Drag"
-				statetimer=0.5
+				var grabAng = Vector2(global_position.x,global_position.z).angle_to_point(Vector2(grabbedthing.global_position.x,grabbedthing.global_position.z))#+(PI/2)
+				#grabAng = model.rotation.y
+				var angleDiff = (roundTo90(input_dir.angle())-grabAng)
+				angleDiff=fmod(round(fposmod(angleDiff,2.0*PI)/(PI/2)),4.0)
+				print(angleDiff)
+				if angleDiff == 2.0:
+					state = "Pull"
+					statetimer=0.5
+				if angleDiff == 0.0:
+					state = "Push"
+					statetimer=0.5
 	else:
 		velocity.x=input_dir.x*move_speed
 		velocity.z=input_dir.y*move_speed
@@ -80,6 +88,13 @@ func _physics_process(delta: float) -> void:
 				#model.rotation.y=round((model.rotation.y/(PI/2)))*(PI/2)
 				model.rotation.y=-Vector2(global_position.x,global_position.z).angle_to_point(Vector2(grabbedobj.global_position.x,grabbedobj.global_position.z))+(PI/2)
 				grabstuff[0].queue_free()
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("NewShirt"):
+		setShirt(randi_range(0,255))
 func snapPos():
 	global_position.x = round(global_position.x+0.5)-0.5
 	global_position.z = round(global_position.z-0.5)+0.5
+func setShirt(shirtnum:int):
+	shirttex.uv1_offset=Vector3(0.0625*shirtnum,0.0625*floor(shirtnum/16.0),0.0)
+func roundTo90(angle:float):
+	return round(angle/(PI/2))*(PI/2)
