@@ -27,20 +27,22 @@ size = Vector3(1, 6, 8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1.5)
 
 [node name="Floor" type="CSGBox3D" parent="."]
+visible = false
 use_collision = true
 size = Vector3(6, 1, 6)
 
 [node name="Walls" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4463868, 0)
 use_collision = true
 flip_faces = true
-size = Vector3(6, 6, 6)
+size = Vector3(6, 5.9072266, 6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_aqk2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.86832005, -9.524417e-05, 0.49600437, -0.43510157, 0.4799548, 0.761794, -0.23813221, -0.8772933, 0.41671294, 0, 1.3156588, 0)
+light_specular = 0.0
 shadow_enabled = true
 shadow_blur = 0.0
 

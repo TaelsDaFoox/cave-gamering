@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	statetimer=move_toward(statetimer,0.0,delta)
 	#print(state)
 	#print(statetimer)
-	var input_dir = Input.get_vector("left","right","forward","backward")
+	var input_dir = Input.get_vector("left","right","forward","backward",0.5)
 	if input_dir and not grabbedthing:
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 		interact.rotation.y=roundTo90(model.rotation.y)+PI
@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x=input_dir.x*move_speed
 		velocity.z=input_dir.y*move_speed
 		if input_dir:
-			anim.play("Walk",0.2,3.0)
+			anim.play("Walk",0.2,velocity.length()/2.0)
 		else:
 			anim.play("Idle",0.2,1.0)
 		
