@@ -28,8 +28,11 @@ func _physics_process(delta: float) -> void:
 	#input_dir = input_dir.rotated(-camera.rotation.y)
 	if state == "Push" or state == "Pull":
 		#global_position=global_position.lerp(dragTarget,delta*8)
-		velocity=(global_position.lerp(dragTarget,7))-global_position
-		velocity.y=0.0
+		if abs(grabbedthing.global_position.x+(dragTarget.x-global_position.x)/2)<3.0 and abs(grabbedthing.global_position.z+(dragTarget.z-global_position.z)/2)<3.0:
+			velocity=(global_position.lerp(dragTarget,7))-global_position
+			velocity.y=0.0
+		else:
+			velocity=Vector3.ZERO
 		#print(velocity)
 		if statetimer==0.0:
 			state="Idle"

@@ -7,3 +7,4 @@ cull_mode = 2
 albedo_texture = ExtResource("1_rknnh")
 metallic_specular = 0.0
 uv1_scale = Vector3(0.063, 0.063, 0.05)
+uv1_offset = Vector3(0, -0.001, 0)

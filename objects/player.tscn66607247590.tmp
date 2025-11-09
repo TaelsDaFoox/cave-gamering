@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqams5il2w21v"]
+
+[ext_resource type="Script" uid="uid://cvkxojtn5i24h" path="res://objects/player.gd" id="1_eqqp1"]
+[ext_resource type="PackedScene" uid="uid://c44wtkmqubmm" path="res://models/raccoon_model.tscn" id="2_ykyjo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bxedw"]
+radius = 0.45
+height = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqqp1"]
+size = Vector3(0.5, 0.5, 0.00390625)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_eqqp1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_bxedw")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+spring_length = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+cull_mask = 1048063
+fov = 50.0
+
+[node name="Interact" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.0927847e-08, 0, -0.25)
+shape = SubResource("BoxShape3D_eqqp1")
+
+[node name="model" parent="." instance=ExtResource("2_ykyjo")]
+transform = Transform3D(-0.48, 0, 7.247798e-08, 0, 0.48, 0, -7.247798e-08, 0, -0.48, 0, -0.74545276, 0)
