@@ -51,13 +51,15 @@ icon = ExtResource("1_3n7vm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button3" type="Button" parent="GridContainer"]
+[node name="Wedge" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_jqulp")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
+text = "Wedge"
+icon = ExtResource("1_3n7vm")
 icon_alignment = 1
 expand_icon = true
 
@@ -185,4 +187,5 @@ expand_icon = true
 
 [connection signal="pressed" from="GridContainer/Table" to="." method="_on_table_pressed"]
 [connection signal="pressed" from="GridContainer/Chair" to="." method="_on_chair_pressed"]
+[connection signal="pressed" from="GridContainer/Wedge" to="." method="_on_wedge_pressed"]
 [connection signal="pressed" from="GridContainer/Remove" to="." method="_on_remove_pressed"]

@@ -46,10 +46,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -211.0
-offset_top = -22.0
-offset_right = -15.0
-offset_bottom = 174.0
+offset_left = -232.0
+offset_top = 17.0
+offset_right = -104.0
+offset_bottom = 145.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_e6qbx")
@@ -68,7 +68,7 @@ fov = 30.0
 
 [node name="SubViewport2" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(196, 196)
+size = Vector2i(128, 128)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport2"]
 transform = Transform3D(1, 0, 0, 0, 0.77464664, 0.63239443, 0, -0.63239443, 0.77464664, -2.3841858e-07, 1.5082835, 4.185343)
@@ -101,7 +101,29 @@ text = "Shirt
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="CarpetText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -8.0
+offset_right = 59.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = 1
+theme_override_constants/outline_size = 35
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 41
+text = "Floor
+255"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShirtBtns" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +138,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Left" type="Button" parent="HBoxContainer"]
+[node name="Left" type="Button" parent="ShirtBtns"]
 clip_contents = true
 custom_minimum_size = Vector2(58.9, 0)
 layout_mode = 2
@@ -124,7 +146,7 @@ theme_override_fonts/font = ExtResource("3_cp74y")
 theme_override_font_sizes/font_size = 51
 text = "<"
 
-[node name="Right" type="Button" parent="HBoxContainer"]
+[node name="Right" type="Button" parent="ShirtBtns"]
 clip_contents = true
 custom_minimum_size = Vector2(58.9, 0)
 layout_mode = 2
@@ -132,5 +154,38 @@ theme_override_fonts/font = ExtResource("3_cp74y")
 theme_override_font_sizes/font_size = 51
 text = ">"
 
-[connection signal="pressed" from="HBoxContainer/Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="HBoxContainer/Right" to="." method="_on_right_pressed"]
+[node name="Carpet" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = 92.0
+offset_right = 42.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Left" type="Button" parent="Carpet"]
+clip_contents = true
+custom_minimum_size = Vector2(58.9, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 51
+text = "<"
+
+[node name="Right" type="Button" parent="Carpet"]
+clip_contents = true
+custom_minimum_size = Vector2(58.9, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cp74y")
+theme_override_font_sizes/font_size = 51
+text = ">"
+
+[connection signal="pressed" from="ShirtBtns/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="ShirtBtns/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Carpet/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Carpet/Right" to="." method="_on_right_pressed"]

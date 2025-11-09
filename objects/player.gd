@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 				#grabAng = model.rotation.y
 				var angleDiff = (roundTo90(input_dir.angle())-grabAng)
 				angleDiff=fmod(round(fposmod(angleDiff,2.0*PI)/(PI/2)),4.0)
-				print(angleDiff)
+				#print(angleDiff)
 				if angleDiff == 2.0:
 					state = "Pull"
 					statetimer=0.5
@@ -97,18 +97,24 @@ func _physics_process(delta: float) -> void:
 		else:
 			anim.play("Idle",0.2,1.0)
 		
+	if is_on_floor():
+		velocity.y=0.0
+	else:
+		velocity.y-=delta*50
 	
 	move_and_slide()
 	Global.playerPos=global_position
 	Global.playerRot=model.rotation
+	print(position.y)
 	#print(state)
 	
 	var grabstuff = interact.get_overlapping_bodies()
 	Global.playerGrab=grabstuff
 	if grabstuff:
 		if grabstuff.size()>1:
-			grabstuff[1].queue_free()
-		if Input.is_action_pressed("A") and state=="Idle":
+			pass
+			#grabstuff[1].queue_free()
+		if Input.is_action_pressed("A") and state=="Idle" and position.y<1.251:
 			if grabstuff[0].get_parent()!=self:
 				statetimer=0.15
 				global_position.x=round(global_position.x+0.5)-0.5

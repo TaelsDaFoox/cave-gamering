@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dqhvhfg1hb2fh"]
+
+[ext_resource type="Texture2D" uid="uid://cabfc24ygvcdb" path="res://textures/blackrubber.png" id="1_4brbr"]
+
+[resource]
+albedo_texture = ExtResource("1_4brbr")
+metallic_specular = 0.0
+uv1_scale = Vector3(1.5, 1.5, 1.5)
+uv1_triplanar = true

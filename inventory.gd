@@ -8,7 +8,7 @@ func _on_table_pressed() -> void:
 func roundTo90(angle:float):
 	return round(angle/(PI/2))*(PI/2)
 func snapPosToGrid(pos:Vector3):
-	return Vector3(round(pos.x-0.5)+0.5,1.0,round(pos.z-0.5)+0.5)
+	return Vector3(round(pos.x-0.5)+0.5,round(pos.y),round(pos.z-0.5)+0.5)
 func objSpawn(obj):
 	if not Global.playerGrab:
 		var spawn = obj.instantiate()
@@ -24,3 +24,7 @@ func _on_remove_pressed() -> void:
 
 func _on_chair_pressed() -> void:
 	objSpawn(load("res://objects/chair.tscn"))
+
+
+func _on_wedge_pressed() -> void:
+	objSpawn(load("res://objects/Wedge.tscn"))
