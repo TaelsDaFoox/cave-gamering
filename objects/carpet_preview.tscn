@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://di47eq8hp488q"]
+
+[ext_resource type="PackedScene" uid="uid://c5hxymsuccc3x" path="res://models/ac carpet.glb" id="1_qhj2v"]
+
+[node name="carpetPreview" instance=ExtResource("1_qhj2v")]
+
+[node name="Plane" parent="." index="0"]
+layers = 512

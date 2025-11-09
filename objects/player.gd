@@ -13,6 +13,8 @@ var grabbedthing = null
 var shirttex = load("res://materials/shirt.tres")
 var inventory = load("res://Inventory.tscn")
 var shirtmenu = load("res://shirtMenu.tscn")
+var menuUp := ""
+@onready var grabCollision = $GrabCollision
 func _ready() -> void:
 	#shirttex.uv1_scale=Vector3(0.059,0.059,0)
 	shirt.set_surface_override_material(0,shirttex)
@@ -25,14 +27,13 @@ func _physics_process(delta: float) -> void:
 	if input_dir and not grabbedthing and not state=="Inventory":
 		model.rotation.y=lerp_angle(model.rotation.y,-input_dir.angle()+PI/2,delta*20)
 		interact.rotation.y=roundTo90(model.rotation.y)+PI
+		grabCollision.position.x = cos(interact.rotation.y+(PI/2))
+		grabCollision.position.z = sin(interact.rotation.y-(PI/2))
 	#input_dir = input_dir.rotated(-camera.rotation.y)
 	if state == "Push" or state == "Pull":
 		#global_position=global_position.lerp(dragTarget,delta*8)
-		if abs(grabbedthing.global_position.x+(dragTarget.x-global_position.x)/2)<3.0 and abs(grabbedthing.global_position.z+(dragTarget.z-global_position.z)/2)<3.0:
-			velocity=(global_position.lerp(dragTarget,7))-global_position
-			velocity.y=0.0
-		else:
-			velocity=Vector3.ZERO
+		velocity=(global_position.lerp(dragTarget,7))-global_position
+		velocity.y=0.0
 		#print(velocity)
 		if statetimer==0.0:
 			state="Idle"
@@ -44,6 +45,7 @@ func _physics_process(delta: float) -> void:
 			state="Idle"
 			snapPos()
 	if grabbedthing:
+		grabCollision.disabled=false
 		if state == "Idle":
 			velocity=Vector3.ZERO
 			anim.play("Grab",0.2,1.0)
@@ -51,6 +53,7 @@ func _physics_process(delta: float) -> void:
 			anim.play(state,0.2,velocity.length()*1.1)
 		#velocity=Vector3.ZERO
 		if not Input.is_action_pressed("A") and statetimer==0.0:
+			grabCollision.disabled=true
 			snapPos()
 			var posBuffer = grabbedthing.global_position
 			var rotBuffer = grabbedthing.rotation
@@ -86,6 +89,7 @@ func _physics_process(delta: float) -> void:
 					state="TurnL"
 					statetimer=0.5
 	elif state=="Idle" or state=="Grab": #no idea why this has to run for the grab animation to work but it's almost 1 AM and I don't care to look into it
+		grabCollision.disabled=true
 		velocity.x=input_dir.x*move_speed
 		velocity.z=input_dir.y*move_speed
 		if input_dir:
@@ -95,11 +99,16 @@ func _physics_process(delta: float) -> void:
 		
 	
 	move_and_slide()
+	Global.playerPos=global_position
+	Global.playerRot=model.rotation
 	#print(state)
 	
 	var grabstuff = interact.get_overlapping_bodies()
+	Global.playerGrab=grabstuff
 	if grabstuff:
-		if Input.is_action_pressed("A"):
+		if grabstuff.size()>1:
+			grabstuff[1].queue_free()
+		if Input.is_action_pressed("A") and state=="Idle":
 			if grabstuff[0].get_parent()!=self:
 				statetimer=0.15
 				global_position.x=round(global_position.x+0.5)-0.5
@@ -118,12 +127,31 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("menu"):
 		if state=="Idle":
 			state="Inventory"
+			menuUp = "Inventory"
 			anim.play("Inventory",0.3)
 			velocity=Vector3.ZERO
-			get_parent().add_child(shirtmenu.instantiate())
+			var getMenu = get_parent().get_node(menuUp)
+			if not getMenu:
+				get_parent().add_child(inventory.instantiate())
 		elif state == "Inventory":
 			state="Idle"
-			get_parent().get_node("ShirtMenu").queue_free()
+			var getMenu = get_parent().get_node(menuUp)
+			if getMenu:
+				getMenu.queue_free()
+	if event.is_action_pressed("menu 2"):
+		if state=="Idle":
+			state="Inventory"
+			menuUp = "ShirtMenu"
+			anim.play("Inventory",0.3)
+			velocity=Vector3.ZERO
+			var getMenu = get_parent().get_node(menuUp)
+			if not getMenu:
+				get_parent().add_child(shirtmenu.instantiate())
+		elif state == "Inventory":
+			state="Idle"
+			var getMenu = get_parent().get_node(menuUp)
+			if getMenu:
+				getMenu.queue_free()
 func snapPos():
 	global_position.x = round(global_position.x+0.5)-0.5
 	global_position.z = round(global_position.z-0.5)+0.5

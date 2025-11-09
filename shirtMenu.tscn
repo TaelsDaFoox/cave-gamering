@@ -1,11 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3v3jww3m4rul"]
+[gd_scene load_steps=8 format=3 uid="uid://d3v3jww3m4rul"]
 
 [ext_resource type="Script" uid="uid://dniumddodwytf" path="res://shirt_menu.gd" id="1_ncqk2"]
 [ext_resource type="PackedScene" uid="uid://dujk7eywtnb8g" path="res://objects/shirtPreview.tscn" id="2_cp74y"]
 [ext_resource type="FontFile" uid="uid://x5uarbb3anha" path="res://fonts/FOT-Seurat Pro B.otf" id="3_cp74y"]
+[ext_resource type="PackedScene" uid="uid://di47eq8hp488q" path="res://objects/carpet_preview.tscn" id="3_e6qbx"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cp74y"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e6qbx"]
+viewport_path = NodePath("SubViewport2")
 
 [sub_resource type="Environment" id="Environment_cp74y"]
 ambient_light_source = 2
@@ -27,17 +31,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -120.0
-offset_right = 16.0
-offset_bottom = 136.0
+offset_left = -211.0
+offset_top = -180.0
+offset_right = -15.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_cp74y")
 
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = -22.0
+offset_right = -15.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_e6qbx")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(256, 256)
+size = Vector2i(196, 196)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.157089, 3.9249146)
@@ -47,6 +66,19 @@ fov = 30.0
 
 [node name="shirt" parent="SubViewport" instance=ExtResource("2_cp74y")]
 
+[node name="SubViewport2" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(196, 196)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport2"]
+transform = Transform3D(1, 0, 0, 0, 0.77464664, 0.63239443, 0, -0.63239443, 0.77464664, -2.3841858e-07, 1.5082835, 4.185343)
+cull_mask = 1048064
+environment = SubResource("Environment_cp74y")
+fov = 30.0
+
+[node name="carpetPreview" parent="SubViewport2" instance=ExtResource("3_e6qbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7456355, 0)
+
 [node name="ShirtText" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -55,15 +87,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 29.0
-offset_top = -133.0
+offset_top = -181.0
 offset_right = 230.0
-offset_bottom = 31.0
+offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/line_spacing = 1
 theme_override_constants/outline_size = 35
 theme_override_fonts/font = ExtResource("3_cp74y")
-theme_override_font_sizes/font_size = 66
+theme_override_font_sizes/font_size = 41
 text = "Shirt
 255"
 horizontal_alignment = 1
@@ -77,22 +109,24 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 50.0
-offset_top = 18.0
+offset_top = -82.0
 offset_right = 216.0
-offset_bottom = 104.0
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="Left" type="Button" parent="HBoxContainer"]
-custom_minimum_size = Vector2(78.12, 0)
+clip_contents = true
+custom_minimum_size = Vector2(58.9, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_cp74y")
 theme_override_font_sizes/font_size = 51
 text = "<"
 
 [node name="Right" type="Button" parent="HBoxContainer"]
-custom_minimum_size = Vector2(78.12, 0)
+clip_contents = true
+custom_minimum_size = Vector2(58.9, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_cp74y")
 theme_override_font_sizes/font_size = 51

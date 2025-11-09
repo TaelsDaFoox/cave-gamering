@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqams5il2w21v"]
+[gd_scene load_steps=6 format=3 uid="uid://dqams5il2w21v"]
 
 [ext_resource type="Script" uid="uid://cvkxojtn5i24h" path="res://objects/player.gd" id="1_eqqp1"]
 [ext_resource type="PackedScene" uid="uid://c44wtkmqubmm" path="res://models/raccoon_model.tscn" id="2_ykyjo"]
@@ -9,6 +9,9 @@ height = 1.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eqqp1"]
 size = Vector3(0.5, 0.5, 0.00390625)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ykyjo"]
+size = Vector3(0.8935547, 1, 0.8798828)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -36,3 +39,7 @@ shape = SubResource("BoxShape3D_eqqp1")
 
 [node name="model" parent="." instance=ExtResource("2_ykyjo")]
 transform = Transform3D(-0.48, 0, 7.247798e-08, 0, 0.48, 0, -7.247798e-08, 0, -0.48, 0, -0.74545276, 0)
+
+[node name="GrabCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+shape = SubResource("BoxShape3D_ykyjo")

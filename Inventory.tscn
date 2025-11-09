@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxvg72c0cc4ji"]
+[gd_scene load_steps=5 format=3 uid="uid://cxvg72c0cc4ji"]
 
 [ext_resource type="Texture2D" uid="uid://cgf16pxqe5lcw" path="res://textures/UI/leaf icon.png" id="1_3n7vm"]
 [ext_resource type="Script" uid="uid://bjbjgyoa7ym8r" path="res://inventory.gd" id="1_ki15f"]
+[ext_resource type="FontFile" uid="uid://x5uarbb3anha" path="res://fonts/FOT-Seurat Pro B.otf" id="2_jqulp"]
+[ext_resource type="Texture2D" uid="uid://bi6lqh7l68o1m" path="res://textures/UI/X icon.png" id="3_nwt7c"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
@@ -24,23 +26,25 @@ offset_bottom = 167.0
 grow_horizontal = 2
 columns = 5
 
-[node name="Button" type="Button" parent="GridContainer"]
+[node name="Table" type="Button" parent="GridContainer"]
 texture_filter = 2
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 text = "Table"
 icon = ExtResource("1_3n7vm")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button2" type="Button" parent="GridContainer"]
+[node name="Chair" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 text = "Chair"
 icon = ExtResource("1_3n7vm")
@@ -52,6 +56,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -61,6 +66,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -70,6 +76,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -79,6 +86,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -88,6 +96,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -97,6 +106,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -106,6 +116,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -115,6 +126,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -124,6 +136,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -133,6 +146,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -142,6 +156,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
@@ -151,17 +166,23 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_jqulp")
 theme_override_font_sizes/font_size = 12
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button15" type="Button" parent="GridContainer"]
+[node name="Remove" type="Button" parent="GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6509804)
 theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("2_jqulp")
+theme_override_font_sizes/font_size = 9
+text = "Remove"
+icon = ExtResource("3_nwt7c")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="GridContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GridContainer/Table" to="." method="_on_table_pressed"]
+[connection signal="pressed" from="GridContainer/Chair" to="." method="_on_chair_pressed"]
+[connection signal="pressed" from="GridContainer/Remove" to="." method="_on_remove_pressed"]
