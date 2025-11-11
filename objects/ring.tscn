@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0r2b5qwhj5hh"]
+
+[ext_resource type="PackedScene" uid="uid://bmekr3ad0xk6a" path="res://models/ring.glb" id="1_ogjf3"]
+[ext_resource type="Script" uid="uid://d4bstb3wubxpl" path="res://models/ring.gd" id="2_mdp2e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wafca"]
+
+[node name="Ring" type="StaticBody3D"]
+collision_layer = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wafca")
+
+[node name="Model" parent="." instance=ExtResource("1_ogjf3")]
+transform = Transform3D(0.637, 0, 0, 0, 0.637, 0, 0, 0, 0.637, 0, 0, 0)
+script = ExtResource("2_mdp2e")

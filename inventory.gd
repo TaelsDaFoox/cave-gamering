@@ -28,3 +28,7 @@ func _on_chair_pressed() -> void:
 
 func _on_wedge_pressed() -> void:
 	objSpawn(load("res://objects/Wedge.tscn"))
+
+
+func _on_ring_pressed() -> void:
+	objSpawn(load("res://objects/ring.tscn"))

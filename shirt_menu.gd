@@ -1,12 +1,14 @@
 extends Control
 @onready var shirt = $SubViewport/shirt
-@onready var carpet = $SubViewport2/carpetPreview
+#@onready var carpet = $SubViewport2/carpetPreview
+@onready var firstbtn = $ShirtBtns/Left
 var player
 @onready var shirtText = $ShirtText
 func _physics_process(delta: float) -> void:
 	shirt.rotation.y+=delta*0.5
-	carpet.rotation.y+=delta*0.5
+	#carpet.rotation.y+=delta*0.5
 func _ready() -> void:
+	firstbtn.grab_focus()
 	player=get_parent().get_node("Player")
 	updateShirtText()
 
